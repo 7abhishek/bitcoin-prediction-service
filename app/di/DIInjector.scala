@@ -2,7 +2,8 @@ package di
 
 import com.google.inject.AbstractModule
 import org.slf4j.LoggerFactory
-import services.{CoinBaseApiService, HttpBasedCoinBaseApiService}
+import services.CoinBaseApiService
+import services.impl.HttpBasedCoinBaseApiService
 
 class DIInjector extends AbstractModule {
   private val logger = LoggerFactory.getLogger(classOf[DIInjector])
