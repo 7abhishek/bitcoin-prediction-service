@@ -1,4 +1,4 @@
-package services
+package services.impl
 
 import com.google.inject.Inject
 import models.BitCoinInstantPrice
@@ -11,8 +11,9 @@ import play.api.libs.ws.WSClient
 import scala.collection.immutable.Seq
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import serializers.JsonSerializers._
 import scala.concurrent.duration._
+import serializers.JsonSerializers._
+import services.CoinBaseApiService
 
 class HttpBasedCoinBaseApiService @Inject()(configuration: Configuration, wsClient: WSClient, cacheApi: AsyncCacheApi) 
   extends 
