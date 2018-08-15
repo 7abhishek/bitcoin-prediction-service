@@ -27,6 +27,7 @@
   <logger name="play" level="INFO" />
   <logger name="application" level="DEBUG" />
   <logger name="services" level="INFO"/>
+  <logger name="services.impl" level="INFO"/>
   <logger name="serializers" level="INFO"/>
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->

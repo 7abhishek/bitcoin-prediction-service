@@ -1,7 +1,7 @@
 package serializers
 
 import models.BitCoinInstantPrice
-import org.joda.time.{DateTime, Instant}
+import org.joda.time.Instant
 import org.joda.time.format.DateTimeFormat
 import org.slf4j.LoggerFactory
 import play.api.libs.json.{JsError, Json, JsResult, JsString, JsSuccess, JsValue, Reads, Writes}
