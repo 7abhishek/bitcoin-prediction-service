@@ -10,5 +10,8 @@ GET     /historicalpricesbyinterval   @controllers.HistoricBitCoinPricesControll
 
 GET     /forecast                   @controllers.BitCoinPriceForecastingController.forecast(days: Int)
 
+GET     /movingaverage              @controllers.MovingAverageController.movingAverage(startDate: String, endDate:String, movingAverageNumber: Double)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

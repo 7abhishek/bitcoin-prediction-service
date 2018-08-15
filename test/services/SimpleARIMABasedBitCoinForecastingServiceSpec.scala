@@ -5,10 +5,10 @@ import org.joda.time.{DurationFieldType, Instant}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.time.{Millis, Seconds, Span}
+import scala.concurrent.duration._
 import services.impl.SimpleARIMABasedBitCoinForecastingService
 import scala.collection.immutable.Seq
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Random
 
@@ -20,8 +20,7 @@ class SimpleARIMABasedBitCoinForecastingServiceSpec extends WordSpec with MockFa
   private val TestBitCoinPriceInUSD = 1490
   private val HistoricalBitCoinPricesForYearFuture = Future(getHistoricalBitCoinPricesForYear())
   private val HistoricalInvalidBitCoinPricesForYearFuture = Future(getHistoricalBitCoinPricesForYear(valid= false))
-  //Tech Debt: use Await.result until this issue of prematurely timingout of scalaFutures is fixed.
-  private implicit val defaultPatience = PatienceConfig(timeout = Span(2, Seconds), interval = Span(5, Millis))
+  private val TestAwaitDuration = 1 minute
   
   "forecast" should {
     "return forecasted bitCoin prices" when {
@@ -30,10 +29,10 @@ class SimpleARIMABasedBitCoinForecastingServiceSpec extends WordSpec with MockFa
         
         val bitCoinPriceForecastingService = new SimpleARIMABasedBitCoinForecastingService(coinBaseApiServiceMock)
         val forecastFuture = bitCoinPriceForecastingService.forecast(ValidForecastDays)
+        val forecast = Await.result(forecastFuture, TestAwaitDuration)
+
+        forecast.size should be(ValidForecastDays)
         
-        whenReady(forecastFuture){ forecastedPrices =>
-          forecastedPrices.size should be(ValidForecastDays)
-        }
       }
     }
 
@@ -44,7 +43,7 @@ class SimpleARIMABasedBitCoinForecastingServiceSpec extends WordSpec with MockFa
         val bitCoinPriceForecastingService = new SimpleARIMABasedBitCoinForecastingService(coinBaseApiServiceMock)
         val forecastFuture = bitCoinPriceForecastingService.forecast(ValidForecastDays)
 
-        an [Exception] should be thrownBy(whenReady(forecastFuture)(forecast => forecast))
+        an [Exception] should be thrownBy(Await.result(forecastFuture, TestAwaitDuration))
       }
 
       "the data could not be fit into ARIMA model" in {
@@ -53,7 +52,7 @@ class SimpleARIMABasedBitCoinForecastingServiceSpec extends WordSpec with MockFa
         val bitCoinPriceForecastingService = new SimpleARIMABasedBitCoinForecastingService(coinBaseApiServiceMock)
         val forecastFuture = bitCoinPriceForecastingService.forecast(ValidForecastDays)
 
-        an [Exception] should be thrownBy(whenReady(forecastFuture)(forecast => forecast))
+        an [Exception] should be thrownBy(Await.result(forecastFuture, TestAwaitDuration))
       }
     }
   }
