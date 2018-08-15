@@ -68,7 +68,7 @@ class HttpBasedCoinBaseApiService @Inject()(configuration: Configuration, wsClie
     require(startDateTime.isBefore(endDateTime), s"startDate should be before endDate, but was startDate $startDate ," +
       s" endDate $endDate")
     val numberOfDays = Days.daysBetween(startDateTime.toLocalDate, endDateTime.toLocalDate).getDays
-    logger.info("numberOfDays between {} and {} is {}",startDate, endDate, numberOfDays.toString)
+    logger.info("numberOfDays from {} to {} is {}",startDate, endDate, numberOfDays.toString)
     Future.sequence((0 to numberOfDays).map(dayCount => {
       val latestDate = startDateTime.plusDays(dayCount)
       val date = latestDate.toString(DefaultDateFormatter)
