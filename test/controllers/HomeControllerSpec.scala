@@ -14,7 +14,7 @@ import play.api.test.Helpers._
  *
  * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
  */
-class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting with MockFactory with OneInstancePerTest {
+class HomeControllerSpec extends PlaySpec with MockFactory with OneInstancePerTest {
   private val configurationMock = mock[Configuration]
   private val AppName = "bitcoin-prediction-service"
   private val HomePageResponseHeaderContentType = "application/json"

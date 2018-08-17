@@ -6,5 +6,5 @@ import org.joda.time.Instant
 case class BitCoinInstantPrice(time: Instant, price: String) {
   require(price.nonEmpty , s"price cannot be empty")
   val numericalPrice = price.toDouble
-  require(numericalPrice > 0 , s"numericalPrice cannot be negative, but was $numericalPrice")
+  require(numericalPrice > 0 , s"numericalPrice greater than 0, but was $numericalPrice")
 }

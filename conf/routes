@@ -8,5 +8,7 @@ GET     /                           @controllers.HomeController.index
 GET     /historicalprices           @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPrices(duration: Option[String], date: Option[String])
 GET     /historicalpricesbyinterval   @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPricesByInterval(startDate: String, endDate:String)
 
+GET     /forecast                   @controllers.BitCoinPriceForecastingController.forecast(days: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

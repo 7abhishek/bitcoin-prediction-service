@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % "2.3.1",
   "org.apache.spark" %% "spark-mllib" % "2.3.1",
   "joda-time" % "joda-time" % "2.8.1",
-  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.8"
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.8",
+  "com.cloudera.sparkts" % "sparkts" % "0.4.0"
 )
 libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test,
