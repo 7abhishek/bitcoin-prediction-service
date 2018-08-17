@@ -4,13 +4,13 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           @controllers.HomeController.index
-GET     /historicalprices           @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPrices(duration: Option[String], date: Option[String])
-GET     /historicalpricesbyinterval   @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPricesByInterval(startDate: String, endDate:String)
+GET     /v1/health                     @controllers.HomeController.health
+GET     /v1/historicalprices           @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPrices(duration:Option[String], date: Option[String])
+GET     /v1/historicalpricesbyinterval @controllers.HistoricBitCoinPricesController.getHistoricalBitCoinPricesByInterval(startDate: String, endDate:String)
 
-GET     /forecast                   @controllers.BitCoinPriceForecastingController.forecast(days: Int)
+GET     /v1/forecast                   @controllers.BitCoinPriceForecastingController.forecast(days: Int)
 
-GET     /movingaverage              @controllers.MovingAverageController.movingAverage(startDate: String, endDate:String, movingAverageNumber: Double)
+GET     /v1/movingaverage              @controllers.MovingAverageController.movingAverage(startDate: String, endDate:String, movingAverageNumber: Double)
 
 GET     /decision                   @controllers.BitCoinTradingDecisionController.getDecision(days: Int, strategy: String)
 

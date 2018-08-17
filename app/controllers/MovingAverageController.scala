@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 @Singleton
 class MovingAverageController @Inject()(controllerComponents: ControllerComponents,
                                         bitCoinPriceMovingAverageService: BitCoinPriceMovingAverageService) extends AbstractController(controllerComponents) {
-  private val logger = LoggerFactory.getLogger(classOf[BitCoinPriceForecastingController])
+  private val logger = LoggerFactory.getLogger(classOf[MovingAverageController])
 
   def movingAverage(startDate: String, endDate: String, movingAverageNumber: Double) = Action.async {
     implicit request: Request[AnyContent] =>

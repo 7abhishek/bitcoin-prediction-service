@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
 import models.BitCoinInstantPrice
 import org.joda.time.Instant
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{Matchers, OneInstancePerTest, WordSpec}
 import org.scalatest.concurrent.ScalaFutures
 import play.api.Configuration
 import play.api.test.FakeRequest
@@ -16,7 +16,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
 
 
-class HistoricBitCoinPricesControllerSpec extends WordSpec with MockFactory with Matchers with ScalaFutures {
+class HistoricBitCoinPricesControllerSpec extends WordSpec with MockFactory with Matchers with ScalaFutures with OneInstancePerTest {
 
   private val controllerComponentsMock = stubControllerComponents()
   private val coinBaseApiServiceMock = mock[CoinBaseApiService]
@@ -35,8 +35,8 @@ class HistoricBitCoinPricesControllerSpec extends WordSpec with MockFactory with
   private val TestBitCoinPriceList = Seq(TestBitCoinInstantPrice)
   private val TestBitCoinInstantPricesFuture = Future(TestBitCoinPriceList)
   private val TestBitCoinInstantPriceFuture = Future(TestBitCoinInstantPrice)
-  private val FakeRequestGetHistoricalPrices = FakeRequest(GET, "/historicalprices")
-  private val FakeRequestGetHistoricalPricesByInterval = FakeRequest(GET, "/historicalpricesbyinterval")
+  private val FakeRequestGetHistoricalPrices = FakeRequest(GET, "/v1/historicalprices")
+  private val FakeRequestGetHistoricalPricesByInterval = FakeRequest(GET, "/v1/historicalpricesbyinterval")
   private def TestExpectedStringGetHistoricalPricesForDuration = Source.fromURL(getClass.getResource("/testExpectedGetHistoricPricesForDuration.json"))
   private def TestExpectedStringGetHistoricalPricesByDate = Source.fromURL(getClass.getResource("/testExpectedGetHistoricPricesByDate.json"))
 
