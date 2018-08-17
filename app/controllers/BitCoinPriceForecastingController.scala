@@ -12,7 +12,8 @@ import services.BitCoinPriceForecastingService
 
 @Singleton
 class BitCoinPriceForecastingController @Inject()(controllerComponents: ControllerComponents,
-                                                  @Named("ARIMA") bitCoinPriceForecastingService: BitCoinPriceForecastingService)  
+                                                  @Named("ARIMA") 
+                                                  bitCoinPriceForecastingService: BitCoinPriceForecastingService)  
 extends AbstractController(controllerComponents) {
   private val ForecastingDaysLowerBound = 0
   private val ForecastingDaysUpperBound = 15
