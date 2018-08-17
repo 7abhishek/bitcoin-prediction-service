@@ -12,13 +12,13 @@ date = 2018-03-01 (yyyy-MM-dd)
 <br/>
 Examples: 
 <br/>
-GET /v1/historicalprices?duration=week
+`GET /v1/historicalprices?duration=week`
 <br/>
-GET /v1/historicalprices?duration=month
+`GET /v1/historicalprices?duration=month`
 <br/>
-GET /v1/historicalprices?date=2018-01-02
+`GET /v1/historicalprices?date=2018-01-02`
 <br/>
-GET /v1/historicalprices?date=2017-06-02
+`GET /v1/historicalprices?date=2017-06-02`
 
 
 **GET /v1/historicalpricesbyinterval**
@@ -31,7 +31,7 @@ endDate = 2018-03-02 (yyyy-MM-dd)
 <br/>
 Examples:
 <br/>
-GET /v1/historicalpricesbyinterval?startDate=2018-02-01&endDate=2018-03-02
+`GET /v1/historicalpricesbyinterval?startDate=2018-02-01&endDate=2018-03-02`
 <br/>
 
 **GET /v1/forecast**
@@ -42,9 +42,9 @@ days = number of days the forecast needs to be done.
 <br/>
 Examples:
 <br/>
-GET /v1/forecast?days=12
+`GET /v1/forecast?days=12`
 <br/>
-GET /v1/forecast?days=15
+`GET /v1/forecast?days=15`
 <br/>
 
 **GET /v1/movingaverage**
@@ -59,7 +59,31 @@ movingAverageNumber = number of terms to be considered for averaging in moving a
 <br/>
 Example:
 <br/>
-GET /v1/movingaverage?startDate=2018-02-01&endDate=2018-03-02&movingAverageNumber=6
+`GET /v1/movingaverage?startDate=2018-02-01&endDate=2018-03-02&movingAverageNumber=6`
 <br/>
-GET /v1/movingaverage?startDate=2018-02-01&endDate=2018-03-02&movingAverageNumber=7
+`GET /v1/movingaverage?startDate=2018-02-01&endDate=2018-03-02&movingAverageNumber=7`
 <br/>
+
+**Running the application**
+Pre-requisites: `SBT`
+<br/>
+clone the repo:
+<br/>
+`git clone git@github.com:7abhishek/bitcoin-prediction-service.git`
+<br/>
+goto the root folder
+<br/>
+`cd bitcoin-prediction-service`
+<br/>
+Compile the application
+<br/>
+`sbt clean compile`
+<br/>
+To run the test with coverage report
+<br/>
+`sbt clean coverage test; sbt coverageReport`
+<br/>
+Run the application
+<br/>
+`sbt run`
+
