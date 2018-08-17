@@ -27,7 +27,7 @@ class HomeControllerSpec extends PlaySpec with MockFactory with OneInstancePerTe
       (configurationMock.get[String](_: String)(_: ConfigLoader[String])).expects(*, *).returning(AppName) once
 
       val controller = new HomeController(stubControllerComponents(), configurationMock)
-      val home = controller.index().apply(FakeRequest(GET, "/"))
+      val home = controller.health().apply(FakeRequest(GET, "/v1/health"))
 
       status(home) mustBe OK
       contentType(home) mustBe Some(HomePageResponseHeaderContentType)

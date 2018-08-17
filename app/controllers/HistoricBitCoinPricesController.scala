@@ -40,7 +40,7 @@ class HistoricBitCoinPricesController @Inject()(cc: ControllerComponents,
               logger.error("Exception occurred ", exception)
               InternalServerError(Json.toJson("Error occurred, Please contact service administrator"))
           }
-          case None => Future(BadRequest)
+          case None => Future(BadRequest("duration and date parameters missing."))
         }
       }
   }

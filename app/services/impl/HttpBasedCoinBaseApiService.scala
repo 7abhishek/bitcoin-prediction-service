@@ -20,18 +20,10 @@ import services.CoinBaseApiService
 @Singleton
 class HttpBasedCoinBaseApiService @Inject()(configuration: Configuration, wsClient: WSClient, cacheApi: AsyncCacheApi)
   extends CoinBaseApiService {
-  private val CoinBaseHistoricUrlConfigKey = "coinbase.historic.price.data.url"
-  private val CoinBaseSpotPriceUrlConfigKey = "coinbase.spot.price.date.url"
+  import HttpBasedCoinBaseApiService._
   private val CoinBaseHistoricDataUrl = configuration.get[String](CoinBaseHistoricUrlConfigKey)
   private val CoinBaseSpotPriceByDateUrl = configuration.get[String](CoinBaseSpotPriceUrlConfigKey)
   private val logger = LoggerFactory.getLogger(classOf[HttpBasedCoinBaseApiService])
-  private val Now = DateTime.now()
-  private val TwoDigitMonth = "%02d".format(Now.getMonthOfYear)
-  private val TodayString = s"${Now.getDayOfMonth}${TwoDigitMonth}${Now.getYear}"
-  private val CacheExpiryDuration = 1 day
-  private val CacheExpiryDurationForInterval = 1 hour
-  private val DefaultDateFormatPattern = "yyyy-MM-dd"
-  private val DefaultDateFormatter = DateTimeFormat.forPattern(DefaultDateFormatPattern)
 
   override def getHistoricalPricesByDuration(duration: String): Future[Seq[BitCoinInstantPrice]] = {
     val durationSpanTry = Future(Try(DurationSpan.withName(duration.toLowerCase())))
@@ -104,4 +96,16 @@ class HttpBasedCoinBaseApiService @Inject()(configuration: Configuration, wsClie
     logger.info("making external WS request with url {}", url)
     wsClient.url(url).get
   }
+}
+
+object HttpBasedCoinBaseApiService {
+  private val CoinBaseHistoricUrlConfigKey = "coinbase.historic.price.data.url"
+  private val CoinBaseSpotPriceUrlConfigKey = "coinbase.spot.price.date.url"
+  private val Now = DateTime.now()
+  private val TwoDigitMonth = "%02d".format(Now.getMonthOfYear)
+  private val TodayString = s"${Now.getDayOfMonth}${TwoDigitMonth}${Now.getYear}"
+  private val CacheExpiryDuration = 1 day
+  private val CacheExpiryDurationForInterval = 1 hour
+  private val DefaultDateFormatPattern = "yyyy-MM-dd"
+  private val DefaultDateFormatter = DateTimeFormat.forPattern(DefaultDateFormatPattern)
 }

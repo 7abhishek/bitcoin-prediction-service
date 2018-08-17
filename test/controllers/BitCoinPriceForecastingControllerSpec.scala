@@ -1,7 +1,7 @@
 package controllers
 
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{Matchers, OneInstancePerTest, WordSpec}
 import org.scalatest.concurrent.ScalaFutures
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -11,7 +11,7 @@ import services.BitCoinPriceForecastingService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
 
-class BitCoinPriceForecastingControllerSpec extends WordSpec with MockFactory with Matchers {
+class BitCoinPriceForecastingControllerSpec extends WordSpec with MockFactory with Matchers with OneInstancePerTest {
   
   private val controllerComponentsStub = stubControllerComponents()
   private val bitCoinPriceForecastingServiceMock = mock[BitCoinPriceForecastingService]
@@ -20,7 +20,7 @@ class BitCoinPriceForecastingControllerSpec extends WordSpec with MockFactory wi
   private val TestBitCoinPrice = 1490.0
   private val TestBitCoinPriceList = Seq.fill(ValidForecastDays)(TestBitCoinPrice)
   private val TestBitCoinPriceFuture = Future(TestBitCoinPriceList)
-  private val FakeRequestGetForecastedBitCoinPrices = FakeRequest(GET, "/forecast")
+  private val FakeRequestGetForecastedBitCoinPrices = FakeRequest(GET, "/v1/forecast")
   private def TestExpectedForecastedResponseString = Source.fromURL(getClass.getResource("/testExpectedForecastedBitCoinPrices.json")).mkString
   
   

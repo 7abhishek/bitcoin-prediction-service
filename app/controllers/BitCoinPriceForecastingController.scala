@@ -15,8 +15,7 @@ class BitCoinPriceForecastingController @Inject()(controllerComponents: Controll
                                                   @Named("ARIMA") 
                                                   bitCoinPriceForecastingService: BitCoinPriceForecastingService)  
 extends AbstractController(controllerComponents) {
-  private val ForecastingDaysLowerBound = 0
-  private val ForecastingDaysUpperBound = 15
+  import BitCoinPriceForecastingController._
   private val logger = LoggerFactory.getLogger(classOf[BitCoinPriceForecastingController])
 
   def forecast(days:Int) = Action.async { implicit request: Request[AnyContent] =>
@@ -35,4 +34,9 @@ extends AbstractController(controllerComponents) {
         Future(BadRequest)
     }
   }
+}
+
+object BitCoinPriceForecastingController {
+  private val ForecastingDaysLowerBound = 0
+  private val ForecastingDaysUpperBound = 15
 }

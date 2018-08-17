@@ -11,17 +11,15 @@ import play.api.mvc._
   */
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents, configuration: Configuration) extends AbstractController(cc) {
-  private val AppNameConfigKey = "app.name"
-  private val AppName = configuration.get[String](AppNameConfigKey) 
-
-  /**
-    * Create an Action to render an HTML page.
-    *
-    * The configuration in the `routes` file means that this method
-    * will be called when the application receives a `GET` request with
-    * a path of `/`.
-    */
-  def index() = Action { implicit request: Request[AnyContent] =>
-   Ok(Json.toJson(AppName))
+  import HomeController._
+  private val AppName = configuration.get[String](AppNameConfigKey)
+  private val HealthEndPointMessage = s"$AppName is healthy"
+  
+  def health() = Action { implicit request: Request[AnyContent] =>
+   Ok(Json.toJson(HealthEndPointMessage))
   }
+}
+
+object HomeController {
+  private val AppNameConfigKey = "app.name"
 }

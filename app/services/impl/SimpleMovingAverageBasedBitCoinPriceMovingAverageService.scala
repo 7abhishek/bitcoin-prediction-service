@@ -11,11 +11,14 @@ class SimpleMovingAverageBasedBitCoinPriceMovingAverageService @Inject()(coinBas
                                                                          @Named("SMA")
                                                                          movingAverageCalculatorService: MovingAverageCalculatorService) 
   extends BitCoinPriceMovingAverageService {
-  private val DefaultMovingAverageNumber = 7.0
-  
+  import SimpleMovingAverageBasedBitCoinPriceMovingAverageService._
   override def average(startDate: String, endDate: String, movingAverageNumber: Double = DefaultMovingAverageNumber): Future[Seq[Double]] = {
     coinBaseApiService.getHistoricalPrices(startDate, endDate).flatMap(historicalBitCoinPrices => {
       movingAverageCalculatorService.average(historicalBitCoinPrices.map(_.numericalPrice), movingAverageNumber)
     })
   }
+}
+
+object SimpleMovingAverageBasedBitCoinPriceMovingAverageService {
+  private val DefaultMovingAverageNumber = 7.0
 }

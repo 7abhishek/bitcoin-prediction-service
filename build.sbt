@@ -22,6 +22,8 @@ libraryDependencies ++= Seq(
   "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % Test)
 
 routesGenerator := InjectedRoutesGenerator
+coverageEnabled := true
+coverageExcludedPackages := """controllers\..*Reverse.*;router.Routes.*;views.*;di"""
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.tookitaki.controllers._"
