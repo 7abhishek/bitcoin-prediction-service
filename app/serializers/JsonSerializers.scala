@@ -1,6 +1,6 @@
 package serializers
 
-import models.BitCoinInstantPrice
+import models.{BitCoinInstantPrice, BitCoinTradingDecision}
 import org.joda.time.Instant
 import org.joda.time.format.DateTimeFormat
 import org.slf4j.LoggerFactory
@@ -25,4 +25,7 @@ object JsonSerializers {
   }
   
   implicit val bitCoinInstantPriceFormat = Json.format[BitCoinInstantPrice]
+  
+  implicit val bitCoinTradingDecisionReads = Reads.enumNameReads(BitCoinTradingDecision)
+  implicit val bitCoinTradingDecisionWrites = Writes.enumNameWrites
 }
